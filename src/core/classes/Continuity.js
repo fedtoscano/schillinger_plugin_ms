@@ -1,0 +1,3 @@
+class Continuity {
+  constructor() {}
+}

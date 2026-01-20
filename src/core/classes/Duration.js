@@ -1,7 +1,11 @@
+/**
+ * MuseScore computes Duration values in TPQ (Ticks Per Quarter)
+ * But the Plugin Adapter returns a Fraction
+ * */
 class Duration {
   constructor(value, dots = 0) {
-    // value è l'oggetto Fraction che arriva da MuseScore
-    this.value = this.convertToTicks(value); 
+    //MuseScore gives a Fraction as Duration
+    this.value = this.convertToTicks(value);
     this.dots = dots;
   }
 
