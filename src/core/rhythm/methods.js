@@ -73,3 +73,15 @@ export function replaceRests(continuity) {
 
   return result;
 }
+
+/** 
+ * Takes an array of integers as generators and sorts them from 
+ * major to minor
+ * @param {array<int>} generators
+ * */
+export function sortGenerators(generators){
+  if(!generators.every((g) => Number.isInteger(g))
+     console.error("not every generator is integer!", generators);
+
+  return [...generators].sort((a, b) => a > b);
+}
