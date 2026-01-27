@@ -24,10 +24,14 @@ MuseScore {
         id: debuggerWindow
     }
 
+    RhythmSection{
+
+    }
     Button {
       text: "Click me"
       onClicked: {
-        debuggerWindow.logDebug("logg");
+        // debuggerWindow.logDebug("logg");
+        debuggerWindow.logDebug(curScore.title);;
       }
       
     }

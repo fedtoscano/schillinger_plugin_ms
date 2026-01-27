@@ -12,6 +12,8 @@ export function getRhythmicResultantFromGenerators(cp, generators) {
     individualRhythmStrings.push(generateRhythmSequence(g, cp));
   });
 
+  console.log({ individualRhythmStrings });
+
   return mergeRhythmicalContinuities(individualRhythmStrings);
 }
 
@@ -24,8 +26,10 @@ export function getRhythmicResultantFromGenerators(cp, generators) {
  *  @returns array
  * */
 export function generateRhythmSequence(generator, cp) {
+  console.log("*** generateRhythmSequence ***");
+  console.log({ generator, cp });
   const result = [];
-  for (let i = 1; i <= cp; i++) result.push(i % generator === 0 ? 1 : 0);
+  for (let i = 0; i < cp; i++) result.push(i % generator === 0 ? 1 : 0);
   return result;
 }
 
@@ -37,6 +41,9 @@ export function generateRhythmSequence(generator, cp) {
  *  @returns array
  * */
 export function mergeRhythmicalContinuities(continuities) {
+  console.info("mergeRhythmicalContinuities");
+  console.log({ continuities });
+
   if (continuities.length === 0) return [];
 
   //assuming all continuities have same length
@@ -74,14 +81,31 @@ export function replaceRests(continuity) {
   return result;
 }
 
-/** 
- * Takes an array of integers as generators and sorts them from 
+/**
+ * Takes an array of integers as generators and sorts them from
  * major to minor
  * @param {array<int>} generators
  * */
-export function sortGenerators(generators){
-  if(!generators.every((g) => Number.isInteger(g))
-     console.error("not every generator is integer!", generators);
+export function sortGenerators(generators) {
+  if (!generators.every((g) => Number.isInteger(g)))
+    console.error("not every generator is integer!", generators);
 
   return [...generators].sort((a, b) => a > b);
+}
+
+/**
+ * Takes an array of integers and returns the minimum common product between them
+ */
+export function getCommonProduct(numbers) {
+  const mcd = (a, b) => {
+    while (b !== 0) {
+      a %= b;
+      [a, b] = [b, a];
+    }
+    return a;
+  };
+
+  const mcmDueNumeri = (a, b) => (a * b) / mcd(a, b);
+
+  return numbers.reduce((acc, curr) => mcmDueNumeri(acc, curr));
 }

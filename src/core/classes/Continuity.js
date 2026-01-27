@@ -1,3 +1,3 @@
-class Continuity {
+export default class Continuity {
   constructor() {}
 }
