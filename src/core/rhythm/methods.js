@@ -105,7 +105,7 @@ export function getCommonProduct(numbers) {
     return a;
   };
 
-  const mcmDueNumeri = (a, b) => (a * b) / mcd(a, b);
+  const cp = (a, b) => (a * b) / mcd(a, b);
 
-  return numbers.reduce((acc, curr) => mcmDueNumeri(acc, curr));
+  return numbers.reduce((acc, curr) => cp(acc, curr));
 }
