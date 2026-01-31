@@ -1,3 +1,5 @@
+/node_modules
+/dist
 *.autosave
 *.bak
 .DS_Store
