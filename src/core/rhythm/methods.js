@@ -33,6 +33,11 @@ export function generateRhythmSequence(generator, cp) {
   return result;
 }
 
+
+export function generateFractioningFromMinorGenerator(){
+
+}
+
 /**
  *  Given 'n' rhythm continuities as arrays of '0' and '1', returns an array
  *  that represents the superimposition of said continuities

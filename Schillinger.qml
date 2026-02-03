@@ -20,20 +20,12 @@ MuseScore {
     property string logText: "" 
     property int currentTab: 0
 
-    Debugger {
-        id: debuggerWindow
-    }
+    // Debugger {
+    //     id: debuggerWindow
+    // }
 
-    RhythmSection{
-
-    }
-    Button {
-      text: "Click me"
-      onClicked: {
-        // debuggerWindow.logDebug("logg");
-        debuggerWindow.logDebug(curScore.title);;
-      }
-      
+    RhythmSection {
     }
 
 }
+

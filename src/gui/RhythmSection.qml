@@ -1,7 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3 
-import "../core/adapter/api.js" as Api 
+import "Schillinger.js" as Schillinger
 
 Item {
     id: rhythmRoot
@@ -11,8 +11,6 @@ Item {
     ColumnLayout {
         anchors.fill: parent
         spacing: 15
-
-
         RowLayout {
             spacing: 10
             ColumnLayout {
@@ -50,8 +48,18 @@ Item {
             Layout.fillWidth: true
             
             onClicked: {
-                debuggerWindow.logDebug("Avvio generazione: p=" + genP.value + ", q=" + genQ.value, false);
-                Api.getSync(genQ.value, genP.value); 
+              var durations = Schillinger.getSync(genP.value, genQ.value);
+              Schillinger.score.insertContinuity(durations);
+              // for (var i = 0; i < durations.length; i++) {
+              //   Schillinger.insertNote(
+              //       curScore, 
+              //       {
+              //       pitch: "60",
+              //       ticks: durations[i]
+              //       },
+              //       i
+              //   );
+              // }
             }
         }
     }

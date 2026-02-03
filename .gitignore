@@ -3,3 +3,5 @@
 *.autosave
 *.bak
 .DS_Store
+# Generated files - auto-compiled from src/
+src/gui/Schillinger.js
