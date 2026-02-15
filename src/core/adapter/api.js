@@ -24,5 +24,14 @@ export function getFractioning(a, b) {
   return tpqSync
 }
 
-export function getBalancing(a, b) { }
+export function getBalancing(a, b) {
+  const continuity = new RhythmicContinuity([a, b], "4/4");
+  const balancing = continuity.balancing();
+  const tpqSync = balancing.map((val) =>
+    TPQ.toTPQ(val)
+  )
+
+  return tpqSync
+}
+
 export function getContracting(a, b) { }

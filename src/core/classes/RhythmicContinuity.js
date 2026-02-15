@@ -51,12 +51,16 @@ export class RhythmicContinuity extends Continuity {
   }
 
   balancing(maj, min) {
+    console.log("BALANCING -------")
     if (!this.checkValidGeneratorsNumber()) return -1;
     const majGen = this.generators[0];
     const minGen = this.generators[1];
-    //fractioning + bynary sync
+    console.log({ majGen, minGen })
+    //fractioning + bynary sync + a * b
     let continuity = this.fractioning(majGen, minGen);
-    continuity = [
+    console.log("continuity: ")
+    console.log({ continuity })
+    return [
       ...continuity,
       this.sync(majGen, minGen),
       [majGen] * (majGen - minGen),
