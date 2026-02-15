@@ -34,6 +34,15 @@ Item {
                     editable: true
                 }
             }
+            ColumnLayout {
+                Label {
+                    text: "Raggruppa: "
+                }
+                ComboBox {
+                    id: groupBy
+                    model: ["P", "Q"]
+                }
+            }
         }
 
         ColumnLayout {
@@ -62,22 +71,22 @@ Item {
                 var mode = operationSelector.currentText;
                 var durations;
 
-                switch(mode) {
-                    case 'sync':
-                        durations = Schillinger.getSync(gen1, gen2);
-                        break;
-                    case 'fractioning':
-                        durations = Schillinger.getFractioning(gen1, gen2);
-                        break;
-                    case 'balancing':
-                        durations = Schillinger.getBalancing(gen1, gen2);
-                        break;
-                    case 'contracting':
-                        durations = Schillinger.getContracting(gen1, gen2);
-                        break;
-                    default:
-                        console.error("Operazione non valida:", mode);
-                        return;
+                switch (mode) {
+                case 'sync':
+                    durations = Schillinger.getSync(gen1, gen2);
+                    break;
+                case 'fractioning':
+                    durations = Schillinger.getFractioning(gen1, gen2);
+                    break;
+                case 'balancing':
+                    durations = Schillinger.getBalancing(gen1, gen2);
+                    break;
+                case 'contracting':
+                    durations = Schillinger.getContracting(gen1, gen2);
+                    break;
+                default:
+                    console.error("Operazione non valida:", mode);
+                    return;
                 }
 
                 Schillinger.score.insertContinuity(durations);
