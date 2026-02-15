@@ -26,16 +26,25 @@ export function getRhythmicResultantFromGenerators(cp, generators) {
  *  @returns array
  * */
 export function generateRhythmSequence(generator, cp) {
-  console.log("*** generateRhythmSequence ***");
-  console.log({ generator, cp });
   const result = [];
   for (let i = 0; i < cp; i++) result.push(i % generator === 0 ? 1 : 0);
   return result;
 }
 
 
-export function generateFractioningFromMinorGenerator(){
+export function generateFractioningFromMinorGenerator(maj, min, bAttacks) {
+  const arr = [];
+  const maxLen = maj * maj;
+  const rhythmLen = maj * min;
+  for (const index of bAttacks) {
+    const group = index !== 0 ? Array(index).fill(0) : [];
+    group.splice(index, 0, ...generateRhythmSequence(min, rhythmLen));
 
+    if (group.length > maxLen) break;
+    group.push(...Array(maxLen - group.length).fill(0));
+    arr.push(group);
+  }
+  return arr;
 }
 
 /**

@@ -14,7 +14,6 @@ export class RhythmicContinuity extends Continuity {
    *
    */
   sync(multiple = false) {
-    console.log("this.generators", this.generators);
     const cp = rmethods.getCommonProduct(this.generators);
     // if(multiple)
     // let complementaryFactors = this.generators.map(g => ~~(cp / g));
@@ -23,7 +22,6 @@ export class RhythmicContinuity extends Continuity {
       cp,
       this.generators,
     );
-    console.log({ resultant });
     const bars = rmethods.replaceRests(resultant);
     return bars;
   }
@@ -44,7 +42,11 @@ export class RhythmicContinuity extends Continuity {
       min,
       bAttacks,
     );
-    const continuity = rmethods.mergeRhythmicalContinuities(majStr, minStr);
+
+    const continuity = rmethods.mergeRhythmicalContinuities([
+      majStr, ...minStr
+    ]);
+
     return rmethods.replaceRests(continuity);
   }
 
@@ -69,7 +71,7 @@ export class RhythmicContinuity extends Continuity {
     let continuity = this.sync();
   }
 
-  contracting() {}
+  contracting() { }
 
   // -------------------- UTILS --------------------------
   checkValidGeneratorsNumber(number = 2) {

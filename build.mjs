@@ -72,6 +72,26 @@ const buildConfig = {
             // Leggi il file generato
             let content = fs.readFileSync(path.join(__dirname, 'src/gui/Schillinger.js'), 'utf-8');
             
+            // Leggi api.js per estrarre tutte le esportazioni
+            const apiPath = path.join(__dirname, 'src/core/adapter/api.js');
+            const apiContent = fs.readFileSync(apiPath, 'utf-8');
+            
+            // Estrai tutte le esportazioni (export function nome o export const nome o export var nome)
+            const exportMatches = apiContent.match(/export\s+(?:function|const|var|let)\s+(\w+)/g) || [];
+            const exports = exportMatches.map(match => {
+              const parts = match.split(/\s+/);
+              return parts[parts.length - 1];
+            });
+            
+            // Genera le dichiarazioni di esportazione
+            let exportStatements = exports.map(exp => {
+              if (exp === 'score') {
+                // Per l'oggetto score, esporta anche i suoi metodi comuni
+                return `var ${exp} = SchillingerCore.${exp};\nvar insertNote = SchillingerCore.${exp}.insertNote;\nvar insertContinuity = SchillingerCore.${exp}.insertContinuity;`;
+              }
+              return `var ${exp} = SchillingerCore.${exp};`;
+            }).join('\n');
+            
             // Aggiungi header e esportazioni QML
             content = `// Auto-generated Schillinger QML Bridge
 // Generated from: src/core/adapter/api.js
@@ -81,10 +101,8 @@ const buildConfig = {
 ${content}
 
 // Export functions for QML compatibility
-// ********** TODO add here other files insertions!!!! *********
-var getSync = SchillingerCore.getSync;
-var score = SchillingerCore.score;
-var insertNote = SchillingerCore.score.insertNote;
+// Auto-generated exports from api.js
+${exportStatements}
 `;
             
             fs.writeFileSync(path.join(__dirname, 'src/gui/Schillinger.js'), content, 'utf-8');

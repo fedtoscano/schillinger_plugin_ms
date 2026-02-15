@@ -11,6 +11,18 @@ export function getSync(a, b) {
     return TPQ.toTPQ(val);
   });
 
-  console.log("mapped TPQ CONTINUITY", tpqSync);
   return tpqSync;
 }
+
+export function getFractioning(a, b) {
+  const continuity = new RhythmicContinuity([a, b], "4/4");
+  const fractioning = continuity.fractioning();
+  const tpqSync = fractioning.map((val) =>
+    TPQ.toTPQ(val)
+  )
+
+  return tpqSync
+}
+
+export function getBalancing(a, b) { }
+export function getContracting(a, b) { }

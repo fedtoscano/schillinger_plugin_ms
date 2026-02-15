@@ -6,7 +6,7 @@ import MuseScore 3.0
 
 MuseScore {
     id: window
-    pluginType: "dock"
+    pluginType: "dialog"
     menuPath: "Plugins.Schillinger System"
     width: 400
     height: 600
@@ -17,7 +17,7 @@ MuseScore {
     property string stsMesg: "Ready"
     property string csvPath: ""
     property string csvFile: ""
-    property string logText: "" 
+    property string logText: ""
     property int currentTab: 0
 
     // Debugger {
@@ -25,7 +25,6 @@ MuseScore {
     // }
 
     RhythmSection {
+        id: rhythmSection
     }
-
 }
-
