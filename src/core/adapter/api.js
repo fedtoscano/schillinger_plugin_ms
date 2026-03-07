@@ -41,8 +41,8 @@ export function getBalancing(a, b, timeSignature) {
   return tpqSync
 }
 
-export function getContracting(a, b, timeSignature) { 
+export function getContracting(a, b, timeSignature) {
   const ts = timeSignature || SM.getTimeSignatureAtCursor().toString();
-  // TODO: implementare
+  // TODO: implementare cosa ???
   return [];
 }

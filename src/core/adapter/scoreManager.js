@@ -22,14 +22,22 @@ export function insertNote(score, note, pos, track = 0) {
 
 export function insertContinuity(continuity) {
   if (!curScore) return -1
-  const C = curScore.newCursor();
-  C.rewind('selection_start');
   curScore.startCmd();
-  continuity.forEach(note => {
-    //1920 = quarter note!
-    C.setDuration(note, 1920);
-    C.addNote(72);
-  });
+  try {
+    const C = curScore.newCursor();
+    C.rewind(1);
+    if (!C.segment) {
+      console.error("No selection or cursor position");
+      curScore.endCmd();
+      return -1;
+    }
+    continuity.forEach(note => {
+      C.setDuration(note, 1920);
+      C.addNote(72);
+    });
+  } catch (error) {
+    console.error("Error in insertContinuity:", error);
+  }
 
   curScore.endCmd();
 }
@@ -41,7 +49,7 @@ export function getTimeSignatureAtCursor() {
   }
 
   var cursor = curScore.newCursor();
-  cursor.rewind("selection_start");
+  cursor.rewind(1);
   var measure = cursor.measure;
 
   if (measure && measure.timesig) {
