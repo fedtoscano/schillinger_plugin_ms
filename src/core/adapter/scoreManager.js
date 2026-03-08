@@ -1,4 +1,6 @@
 // scoreManager.js
+import { TPQ } from "./tpq.js";
+
 export function insertNote(score, note, pos, track = 0) {
   if (!score) {
     console.error("No score is present!");
@@ -11,7 +13,8 @@ export function insertNote(score, note, pos, track = 0) {
     cursor.track = track;
     cursor.rewind(pos);
 
-    cursor.setDuration(1, note.ticks);
+    const denominator = TPQ.ticksToDuration(note.ticks);
+    cursor.setDuration(1, denominator);
     cursor.addNote(note.pitch);
 
   } catch (error) {
@@ -32,8 +35,9 @@ export function insertContinuity(continuity) {
       return -1;
     }
     continuity.forEach(note => {
-      C.setDuration(note, 1920);
-      C.addNote(72);
+      const denominator = TPQ.ticksToDuration(note.ticks);
+      C.setDuration(1, denominator);
+      C.addNote(note.pitch);
     });
   } catch (error) {
     console.error("Error in insertContinuity:", error);
@@ -78,4 +82,8 @@ export function getTimeSignatureAtCursor() {
     denominator: 4,
     toString: function() { return "4/4"; }
   };
+}
+
+export function getNoteDuration(type = 'EIGHTH') {
+  return TPQ.getNoteDuration(type);
 }

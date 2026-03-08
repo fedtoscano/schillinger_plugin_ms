@@ -1,9 +1,7 @@
 export default class TimeSignature {
   constructor(timeStr) {
-    console.log({ timeStr });
     const num = parseInt(timeStr.split("/")[0]);
     const den = parseInt(timeStr.split("/")[1]);
-    console.log({ num, den });
     if (!Number.isInteger(num) || num <= 0)
       throw new Error("Numerator must be a positive integer");
     if (!Number.isInteger(den) || !this.isValidDenominator(den))

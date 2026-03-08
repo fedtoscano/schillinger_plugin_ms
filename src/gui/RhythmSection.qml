@@ -8,7 +8,7 @@ Item {
     Layout.fillWidth: true
     Layout.fillHeight: true
     property var rhythmicOperators: ['sync', 'fractioning', 'balancing', 'contracting',]
-
+    property var rhythmicUnits : [ 'half-note', 'quaver', 'crotchet' ]
     ColumnLayout {
         anchors.fill: parent
         spacing: 15
@@ -36,11 +36,11 @@ Item {
             }
             ColumnLayout {
                 Label {
-                    text: "Raggruppa: "
+                    text: "Valore ritmico minimo: "
                 }
                 ComboBox {
                     id: groupBy
-                    model: ["P", "Q"]
+                    model: rhythmicUnits
                 }
             }
         }
@@ -69,11 +69,12 @@ Item {
                 var gen1 = genP.value;
                 var gen2 = genQ.value;
                 var mode = operationSelector.currentText;
+                var rhythmicUnit = groupBy.currentIndex;
                 var durations;
 
                 switch (mode) {
                 case 'sync':
-                    durations = Schillinger.getSync(gen1, gen2);
+                    durations = Schillinger.getSync(gen1, gen2, rhythmicUnit);
                     break;
                 case 'fractioning':
                     durations = Schillinger.getFractioning(gen1, gen2);
@@ -89,6 +90,7 @@ Item {
                     return;
                 }
 
+                //inserts the continuity to the score
                 Schillinger.score.insertContinuity(durations);
             }
         }

@@ -51,31 +51,33 @@ export class RhythmicContinuity extends Continuity {
   }
 
   balancing(maj, min) {
-    console.log("BALANCING -------")
     if (!this.checkValidGeneratorsNumber()) return -1;
     const majGen = this.generators[0];
     const minGen = this.generators[1];
     console.log({ majGen, minGen })
     //fractioning + bynary sync + a * b
     let continuity = this.fractioning(majGen, minGen);
-    console.log("continuity: ")
-    console.log({ continuity })
+    //fractioning + sync + (a - b);
     return [
       ...continuity,
-      this.sync(majGen, minGen),
+      this.sync(),
       [majGen] * (majGen - minGen),
     ];
   }
 
   expanding() {
     if (!this.checkValidGeneratorsNumber()) return -1;
-    const maj = this.generators[0];
-    const min = this.generators[1];
     //bynary sync + fractioning
-    let continuity = this.sync();
+    return [...this.sync(), this.fractioning()]
   }
 
-  contracting() { }
+  contracting() {
+    if (!this.checkValidGeneratorsNumber()) return -1;
+    //fractioning + binary sync
+    return [...this.fractioning(), ...this.sync()];
+  }
+
+
 
   // -------------------- UTILS --------------------------
   checkValidGeneratorsNumber(number = 2) {
